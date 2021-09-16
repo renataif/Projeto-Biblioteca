@@ -12,7 +12,9 @@ use Yii;
  * @property int $numpaginas
  * @property int $anopublicacao
  * @property int|null $livro_id
+ * @property int|null $editora_id
  *
+ * @property Editora $editora
  * @property Leitura[] $leituras
  * @property Livro $livro
  */
@@ -33,7 +35,8 @@ class Exemplar extends \yii\db\ActiveRecord
     {
         return [
             [['edicao', 'numpaginas', 'anopublicacao'], 'required'],
-            [['edicao', 'numpaginas', 'anopublicacao', 'livro_id'], 'integer'],
+            [['edicao', 'numpaginas', 'anopublicacao', 'livro_id', 'editora_id'], 'integer'],
+            [['editora_id'], 'exist', 'skipOnError' => true, 'targetClass' => Editora::className(), 'targetAttribute' => ['editora_id' => 'id']],
             [['livro_id'], 'exist', 'skipOnError' => true, 'targetClass' => Livro::className(), 'targetAttribute' => ['livro_id' => 'id']],
         ];
     }
@@ -49,7 +52,18 @@ class Exemplar extends \yii\db\ActiveRecord
             'numpaginas' => 'Numpaginas',
             'anopublicacao' => 'Anopublicacao',
             'livro_id' => 'Livro ID',
+            'editora_id' => 'Editora ID',
         ];
+    }
+
+    /**
+     * Gets query for [[Editora]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEditora()
+    {
+        return $this->hasOne(Editora::className(), ['id' => 'editora_id']);
     }
 
     /**

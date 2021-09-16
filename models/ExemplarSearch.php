@@ -17,7 +17,7 @@ class ExemplarSearch extends Exemplar
     public function rules()
     {
         return [
-            [['id', 'edicao', 'numpaginas', 'anopublicacao', 'livro_id'], 'integer'],
+            [['id', 'edicao', 'numpaginas', 'anopublicacao', 'livro_id', 'editora_id'], 'integer'],
         ];
     }
 
@@ -62,6 +62,7 @@ class ExemplarSearch extends Exemplar
             'numpaginas' => $this->numpaginas,
             'anopublicacao' => $this->anopublicacao,
             'livro_id' => $this->livro_id,
+            'editora_id' => $this->editora_id,
         ]);
 
         return $dataProvider;

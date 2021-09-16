@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string $nome
+ *
+ * @property Exemplar[] $exemplars
  */
 class Editora extends \yii\db\ActiveRecord
 {
@@ -40,5 +42,15 @@ class Editora extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nome' => 'Nome',
         ];
+    }
+
+    /**
+     * Gets query for [[Exemplars]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getExemplars()
+    {
+        return $this->hasMany(Exemplar::className(), ['editora_id' => 'id']);
     }
 }
