@@ -11,13 +11,20 @@ use app\models\Exemplar;
  */
 class ExemplarSearch extends Exemplar
 {
+    
+    public function attributes(){      
+        return array_merge(parent::attributes(), ['livro.nome','editora.nome']);
+    }
+
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'edicao', 'numpaginas', 'anopublicacao', 'livro_id', 'editora_id'], 'integer'],
+            [['id', 'edicao', 'numpaginas', 'anopublicacao'], 'integer'],
+            [['livro.nome','editora.nome'], 'safe'],
         ];
     }
 
@@ -47,6 +54,17 @@ class ExemplarSearch extends Exemplar
             'query' => $query,
         ]);
 
+        $query->joinWith(['livro']);
+        $dataProvider->sort->attributes['livro.nome'] = [
+            'asc' => ['livro.nome' => SORT_ASC],
+            'desc' => ['livro.nome' => SORT_DESC],
+        ];
+        $query->joinWith(['editora']);
+        $dataProvider->sort->attributes['editora.nome'] = [
+            'asc' => ['editora.nome' => SORT_ASC],
+            'desc' => ['editora.nome' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -64,6 +82,9 @@ class ExemplarSearch extends Exemplar
             'livro_id' => $this->livro_id,
             'editora_id' => $this->editora_id,
         ]);
+
+        $query->andFilterWhere(['LIKE', 'livro.nome',$this->getAttribute('livro.nome')]);
+        $query->andFilterWhere(['LIKE', 'editora.nome',$this->getAttribute('editora.nome')]);
 
         return $dataProvider;
     }

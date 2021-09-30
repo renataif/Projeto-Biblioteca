@@ -13,7 +13,7 @@ use Yii;
  * @property string $senha
  * @property string $datanascimento
  *
- * @property Leitura[] $leituras
+ * @property Historico[] $historicos
  */
 class Usuario extends \yii\db\ActiveRecord
 {
@@ -52,12 +52,12 @@ class Usuario extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Leituras]].
+     * Gets query for [[Historicos]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLeituras()
+    public function getHistoricos()
     {
-        return $this->hasMany(Leitura::className(), ['usuario_id' => 'id']);
+        return $this->hasMany(Historico::className(), ['usuario_id' => 'id']);
     }
 }

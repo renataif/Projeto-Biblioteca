@@ -15,7 +15,7 @@ use Yii;
  * @property int|null $editora_id
  *
  * @property Editora $editora
- * @property Leitura[] $leituras
+ * @property Historico[] $historicos
  * @property Livro $livro
  */
 class Exemplar extends \yii\db\ActiveRecord
@@ -48,11 +48,11 @@ class Exemplar extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'edicao' => 'Edicao',
-            'numpaginas' => 'Numpaginas',
-            'anopublicacao' => 'Anopublicacao',
-            'livro_id' => 'Livro ID',
-            'editora_id' => 'Editora ID',
+            'edicao' => 'Edição',
+            'numpaginas' => 'Número de páginas',
+            'anopublicacao' => 'Ano da Publicação',
+            'livro_id' => 'Livro',
+            'editora_id' => 'Editora',
         ];
     }
 
@@ -67,13 +67,13 @@ class Exemplar extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Leituras]].
+     * Gets query for [[Historicos]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLeituras()
+    public function getHistoricos()
     {
-        return $this->hasMany(Leitura::className(), ['exemplar_id' => 'id']);
+        return $this->hasMany(Historico::className(), ['exemplar_id' => 'id']);
     }
 
     /**

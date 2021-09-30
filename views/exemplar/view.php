@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Você deseja excluir esse exemplar?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -33,8 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'edicao',
             'numpaginas',
             'anopublicacao',
-            'livro_id',
-            'editora_id',
+            [
+                'attribute'=>'livro.nome',
+                'label'=>'Livro',
+            ],
+            [
+                'attribute'=>'editora.nome',
+                'label'=>'Editora',
+            ],
         ],
     ]) ?>
 

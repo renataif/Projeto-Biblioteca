@@ -17,7 +17,7 @@ class LivroSearch extends Livro
     public function rules()
     {
         return [
-            [['id', 'ano_obra', 'classificacao', 'genero_id', 'autor_id'], 'integer'],
+            [['id', 'ano_obra', 'classificacao'], 'integer'],
             [['nome', 'sinopse'], 'safe'],
         ];
     }
@@ -61,8 +61,6 @@ class LivroSearch extends Livro
             'id' => $this->id,
             'ano_obra' => $this->ano_obra,
             'classificacao' => $this->classificacao,
-            'genero_id' => $this->genero_id,
-            'autor_id' => $this->autor_id,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])

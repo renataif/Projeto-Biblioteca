@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property string $nome
  *
- * @property Livro[] $livros
+ * @property Livrogenero[] $livrogeneros
  */
 class Genero extends \yii\db\ActiveRecord
 {
@@ -45,12 +45,12 @@ class Genero extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Livros]].
+     * Gets query for [[Livrogeneros]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getLivros()
+    public function getLivrogeneros()
     {
-        return $this->hasMany(Livro::className(), ['genero_id' => 'id']);
+        return $this->hasMany(Livrogenero::className(), ['genero_id' => 'id']);
     }
 }

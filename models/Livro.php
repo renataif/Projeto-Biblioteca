@@ -12,12 +12,10 @@ use Yii;
  * @property int $ano_obra
  * @property string $sinopse
  * @property int $classificacao
- * @property int|null $genero_id
- * @property int|null $autor_id
  *
- * @property Autor $autor
  * @property Exemplar[] $exemplars
- * @property Genero $genero
+ * @property Livroautor[] $livroautors
+ * @property Livrogenero[] $livrogeneros
  */
 class Livro extends \yii\db\ActiveRecord
 {
@@ -36,10 +34,8 @@ class Livro extends \yii\db\ActiveRecord
     {
         return [
             [['nome', 'ano_obra', 'sinopse', 'classificacao'], 'required'],
-            [['ano_obra', 'classificacao', 'genero_id', 'autor_id'], 'integer'],
+            [['ano_obra', 'classificacao'], 'integer'],
             [['nome', 'sinopse'], 'string', 'max' => 255],
-            [['autor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Autor::className(), 'targetAttribute' => ['autor_id' => 'id']],
-            [['genero_id'], 'exist', 'skipOnError' => true, 'targetClass' => Genero::className(), 'targetAttribute' => ['genero_id' => 'id']],
         ];
     }
 
@@ -51,22 +47,10 @@ class Livro extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nome' => 'Nome',
-            'ano_obra' => 'Ano Obra',
+            'ano_obra' => 'Ano da Obra',
             'sinopse' => 'Sinopse',
-            'classificacao' => 'Classificacao',
-            'genero_id' => 'Genero ID',
-            'autor_id' => 'Autor ID',
+            'classificacao' => 'Classificação',
         ];
-    }
-
-    /**
-     * Gets query for [[Autor]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAutor()
-    {
-        return $this->hasOne(Autor::className(), ['id' => 'autor_id']);
     }
 
     /**
@@ -80,12 +64,22 @@ class Livro extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Genero]].
+     * Gets query for [[Livroautors]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getGenero()
+    public function getLivroautors()
     {
-        return $this->hasOne(Genero::className(), ['id' => 'genero_id']);
+        return $this->hasMany(Livroautor::className(), ['livrola_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Livrogeneros]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLivrogeneros()
+    {
+        return $this->hasMany(Livrogenero::className(), ['livrog_id' => 'id']);
     }
 }

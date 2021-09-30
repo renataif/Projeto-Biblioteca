@@ -20,12 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'classificacao')->textInput() ?>
 
-    <?= $form->field($model, 'genero_id')->textInput() ?>
-
-    <?= $form->field($model, 'autor_id')->textInput() ?>
-
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

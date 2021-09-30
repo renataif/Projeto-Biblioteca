@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use app\models\Livro;
+use app\models\Editora;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Exemplar */
@@ -18,12 +21,23 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'anopublicacao')->textInput() ?>
 
-    <?= $form->field($model, 'livro_id')->textInput() ?>
+    <?= $form->field($model, 'livro_id')->
+       dropDownList(ArrayHelper::map(Livro::find()
+           ->orderBy('nome')
+           ->all(),'id','nome'),
+           ['prompt' => 'Selecione um Livro'] )
+    ?>
 
-    <?= $form->field($model, 'editora_id')->textInput() ?>
+
+    <?= $form->field($model, 'editora_id')->
+       dropDownList(ArrayHelper::map(Editora::find()
+           ->orderBy('nome')
+           ->all(),'id','nome'),
+           ['prompt' => 'Selecione uma Editora'] )
+    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
