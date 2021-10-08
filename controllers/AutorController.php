@@ -4,9 +4,12 @@ namespace app\controllers;
 
 use app\models\Autor;
 use app\models\AutorSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 /**
  * AutorController implements the CRUD actions for Autor model.
@@ -27,6 +30,33 @@ class AutorController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['create','delete','view','update'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['view'],
+                            'roles' => ['?'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => ['create','delete'],
+                            'roles' => ['@'],
+                        ],
+                    ],
+      
+                    'denyCallback' => function($rule, $action) {
+                        if (Yii::$app->user->isGuest) {
+                            Yii::$app->user->loginRequired();
+                        }
+                        else {
+                            throw new ForbiddenHttpException('Somente administradores podem entrar nessa página.');
+                        }                   
+                    }
+      
+                ],
+     
             ]
         );
     }

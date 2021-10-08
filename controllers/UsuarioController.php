@@ -4,9 +4,12 @@ namespace app\controllers;
 
 use app\models\Usuario;
 use app\models\UsuarioSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
@@ -26,6 +29,32 @@ class UsuarioController extends Controller
                     'actions' => [
                         'delete' => ['POST'],
                     ],
+                ],
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['create','delete','view','update'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => [],
+                            'roles' => ['?'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions' => [],
+                            'roles' => ['@'],
+                        ],
+                    ],
+      
+                    'denyCallback' => function($rule, $action) {
+                        if (Yii::$app->user->isGuest) {
+                            Yii::$app->user->loginRequired();
+                        }
+                        else {
+                            throw new ForbiddenHttpException('Somente administradores podem entrar nessa página.');
+                        }                   
+                    }
+      
                 ],
             ]
         );

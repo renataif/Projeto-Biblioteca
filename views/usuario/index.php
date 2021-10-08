@@ -15,7 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Novo Usuário', ['create'], ['class' => 'btn btn-success']) ?>
+    <?php 
+        if (!Yii::$app->user->isGuest) {
+            echo  Html::a('Novo Usuário', ['create'], ['class' => 'btn btn-success']);
+        }
+    ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -42,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </svg>', ['delete', 'id' => $model->id], [
                             'class' => '',
                             'data' => [
-                                'confirm' => 'Você deseja excluir esse Autor?',
+                                'confirm' => 'Você deseja excluir esse Usuário?',
                                 'method' => 'post',
                             ],
                         ]);

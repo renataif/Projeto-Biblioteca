@@ -15,7 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Nova Editora', ['create'], ['class' => 'btn btn-success']) ?>
+    <?php 
+        if (!Yii::$app->user->isGuest) {
+            echo  Html::a('Nova Editora', ['create'], ['class' => 'btn btn-success']);
+        }
+    ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
