@@ -19,6 +19,8 @@ class UsuarioController extends Controller
     /**
      * @inheritDoc
      */
+
+
     public function behaviors()
     {
         return array_merge(
