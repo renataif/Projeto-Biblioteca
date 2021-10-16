@@ -38,9 +38,6 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Autor', 'url' => ['/autor/index']],
-            ['label' => 'Editora', 'url' => ['/editora/index']],
-            ['label' => 'Gênero', 'url' => ['/genero/index']],
             ['label' => 'Livro', 'url' => ['/livro/index']],
             ['label' => 'Exemplar', 'url' => ['/exemplar/index']],
             ['label' => 'About', 'url' => ['/site/about']],

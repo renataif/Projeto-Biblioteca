@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view} {update} {delete}',
+                'template' => '{view} {update} {delete} {insert}',
                 'buttons' => [
                     'delete' => function($url, $model){
                         return Html::a('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -50,11 +50,29 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'method' => 'post',
                             ],
                         ]);
-                    }
+                    },
                 ]
             ],
         ],
     ]); ?>
+
+    <?php
+        
+        echo "<h1>Indicações de Livros</h1><br>";
+        
+        echo \tuyakhov\youtube\EmbedWidget::widget([
+            'code' => 'PxaRG777rYc',
+            'playerParameters' => [
+                'controls' => 2
+            ],
+            'iframeOptions' => [
+                'width' => '600',
+                'height' => '450'
+            ]
+        ]);
+    ?>
+
+    
 
 
 </div>
